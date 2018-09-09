@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './pairs.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
           title: Text('MEER'),
         ),
         body: Center(
-          child: Text('Hello MEER'),
+          child: PairsParent('Pair Tester'),
         ),
       ),
     );
