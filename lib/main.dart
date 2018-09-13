@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-
-import 'search/search.dart';
+import 'package:meer/routes.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'MEER',
       theme: new ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('MEER'),
-        ),
-        body: Search(),
-      ),
+      routes: routes,
     );
   }
 }
