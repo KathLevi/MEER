@@ -49,17 +49,34 @@ class Pairs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: pairs
-          .map(
-            (elem) => Card(
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset('assets/test.jpg'),
-                      Text('test')
-                    ],
-                  ),
+          .map((elem) => Card(
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Image.asset('assets/test.jpg'),
+                    ),
+                    Expanded(
+                        child: Image.network('https://i.imgur.com/vmCWjuV.png',
+                            fit: BoxFit.fill))
+                  ],
                 ),
-          )
+              ))
           .toList(),
     );
+  }
+
+  Widget _buildRow() {
+    return (Card(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Image.asset('assets/test.jpg'),
+          ),
+          Expanded(
+              child: Image.network('https://i.imgur.com/vmCWjuV.png',
+                  fit: BoxFit.fill))
+        ],
+      ),
+    ));
   }
 }

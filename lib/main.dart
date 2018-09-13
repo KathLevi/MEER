@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('MEER'),
         ),
-        body: Center(
-          child: PairsParent('Pair Tester'),
+        body: ListView(
+          children: [PairsParent('Pair Tester')],
         ),
       ),
     );
