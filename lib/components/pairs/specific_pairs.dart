@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meer/API/the_movie_db.dart';
-import 'package:meer/models/movie.dart';
 
 class SpecificPairScreen extends StatefulWidget {
   final String searchTerm;
@@ -14,6 +13,14 @@ class SpecificPairScreen extends StatefulWidget {
 }
 
 class SpecificPairScreenState extends State<SpecificPairScreen> {
+  String searchTerm = "";
+
+  @override
+  void initState() {
+    searchTerm = widget.searchTerm;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -21,22 +28,32 @@ class SpecificPairScreenState extends State<SpecificPairScreen> {
           title: new Text('MEER'),
         ),
         body: Center(
-          child: FutureBuilder<Result>(
-              future: fetchResult(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  print('snapshot has data');
-                  return Text("${snapshot.data.results[0].id.toString()}");
-                } else if (snapshot.hasError) {
-                  // return Text("${snapshot.error}");
-                }
+          child: FutureBuilder(
+            future: fetchResult(this.searchTerm),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Pairs(snapshot.data);
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error);
+              }
 
-                return CircularProgressIndicator();
-              }),
-        )
-        // body: new Center(
-        //   child: new Text('test'),
-        // ),
-        );
+              return CircularProgressIndicator();
+            },
+          ),
+        ));
+  }
+}
+
+class Pairs extends StatelessWidget {
+  final List<dynamic> pairs;
+
+  Pairs(this.pairs);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        children: pairs
+            .map((movie) => Card(child: Text("${movie['title']}")))
+            .toList());
   }
 }
