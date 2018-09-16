@@ -56,16 +56,15 @@ class Pairs extends StatelessWidget {
             .map((movie) => Card(
                     child: Row(
                   children: <Widget>[
+                    Expanded(child: this.movie(movie)),
                     Expanded(
-                        child: Column(children: <Widget>[
-                      this.movie(movie),
-                      new Text('Title: ' +
-                          movie['title'] +
-                          ' \nR: ${movie['vote_average']}')
-                    ])),
+                        child: Card(
+                            child: Image.network(
+                                'https://i.imgur.com/vmCWjuV.png',
+                                fit: BoxFit.fill))),
                     Expanded(
-                        child: Image.network('https://i.imgur.com/vmCWjuV.png',
-                            fit: BoxFit.fill))
+                        child: Text(
+                            'Nostrud aliquip amet in ex ad deserunt laborum voluptate aute ea.'))
                   ],
                 )))
             .toList());
@@ -78,7 +77,7 @@ class Pairs extends StatelessWidget {
         "https://image.tmdb.org/t/p/w${imgWidth}_and_h${imgHeight}_bestv2/";
 
     if (movie['poster_path'] is String) {
-      return Image.network(uri + movie['poster_path']);
+      return Card(child: Image.network(uri + movie['poster_path']));
     } else if (movie['title'].length is String) {
       return Text(movie['title']);
     }
