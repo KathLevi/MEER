@@ -25,7 +25,7 @@ class SpecificPairScreenState extends State<SpecificPairScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text('MEER'),
+          title: new Text('Results'),
         ),
         body: Center(
           child: FutureBuilder(
@@ -51,9 +51,38 @@ class Pairs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
         children: pairs
-            .map((movie) => Card(child: Text("${movie['title']}")))
+            .map((movie) => Card(
+                    child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Column(children: <Widget>[
+                      this.movie(movie),
+                      new Text('Title: ' +
+                          movie['title'] +
+                          ' \nR: ${movie['vote_average']}')
+                    ])),
+                    Expanded(
+                        child: Image.network('https://i.imgur.com/vmCWjuV.png',
+                            fit: BoxFit.fill))
+                  ],
+                )))
             .toList());
+  }
+
+  movie(movie) {
+    final String imgWidth = "185";
+    final String imgHeight = "278";
+    final String uri =
+        "https://image.tmdb.org/t/p/w${imgWidth}_and_h${imgHeight}_bestv2/";
+
+    if (movie['poster_path'] is String) {
+      return Image.network(uri + movie['poster_path']);
+    } else if (movie['title'].length is String) {
+      return Text(movie['title']);
+    }
+
+    return Text('no title found');
   }
 }
