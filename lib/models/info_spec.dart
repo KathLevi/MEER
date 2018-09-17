@@ -11,8 +11,7 @@ class Alcohol {
 }
 
 // Test data
-
-Movie movie = Movie(
+Movie testMovie = Movie(
     title: 'Avengers',
     poster_path: 'assets/something.png',
     overview:
@@ -20,7 +19,7 @@ Movie movie = Movie(
     vote_average: 8.0,
     genre_ids: [1, 2]);
 
-const Alcohol alcohol = Alcohol(
+const Alcohol testAlcohol = Alcohol(
     name: 'Space Dust',
     abv: 8.2,
     brand: 'Elysian Brewing Company',
