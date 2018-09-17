@@ -1,18 +1,4 @@
-class Movie {
-  const Movie({
-    this.name,
-    this.image,
-    this.description,
-    this.genre,
-    this.rating
-  });
-
-  final String name;
-  final String image;
-  final String description;
-  final String genre;
-  final double rating;
-}
+import 'package:meer/models/movie.dart';
 
 class Alcohol {
   const Alcohol({this.name, this.abv, this.brand, this.image, this.type});
@@ -26,13 +12,13 @@ class Alcohol {
 
 // Test data
 
-const Movie movie = Movie(
-    name: 'Avengers',
-    image: 'assets/something.png',
-    description:
+Movie movie = Movie(
+    title: 'Avengers',
+    poster_path: 'assets/something.png',
+    overview:
         'Some movie about some people doing something to someone using something.',
-    rating: 8.0,
-    genre: 'action');
+    vote_average: 8.0,
+    genre_ids: [1, 2]);
 
 const Alcohol alcohol = Alcohol(
     name: 'Space Dust',

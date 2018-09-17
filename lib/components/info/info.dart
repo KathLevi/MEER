@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meer/models/info_spec.dart';
+import 'package:meer/models/movie.dart';
 
 class InfoScreen extends StatefulWidget {
   final Movie movie;
@@ -42,16 +43,16 @@ class InfoScreenState extends State<InfoScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  movie.name,
+                  movie.title,
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Genre: ' + movie.genre),
+                  child: Text('Genre: ' + movie.genre_ids.toString()),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Rating: ' + movie.rating.toString()),
+                  child: Text('Rating: ' + movie.vote_average.toString()),
                 ),
               ],
             ),
@@ -65,7 +66,7 @@ class InfoScreenState extends State<InfoScreen> {
         children: <Widget>[
           Flexible(
             child: new Column(
-              children: <Widget>[new Text(movie.description)],
+              children: <Widget>[new Text(movie.overview)],
             ),
           ),
         ],
@@ -114,7 +115,7 @@ class InfoScreenState extends State<InfoScreen> {
     );
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(movie.name + ' pairing'),
+        title: new Text(movie.title + ' pairing'),
       ),
       body: Padding(
         padding: EdgeInsets.all(10.0),

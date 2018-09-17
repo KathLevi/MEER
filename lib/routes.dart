@@ -9,4 +9,5 @@ final routes = {
   '/home': (BuildContext context) => new HomeScreen(),
   // '/pairs': (BuildContext context) => new SpecificPairScreen(),
   '/': (BuildContext context) => new InfoScreen(movie: movie, alcohol: alcohol,),
+  // '/': (BuildContext context) => new HomeScreen(),
 };
