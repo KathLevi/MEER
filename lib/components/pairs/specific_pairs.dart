@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meer/API/the_movie_db.dart';
+import 'package:meer/components/info/info.dart';
+import 'package:meer/models/info_spec.dart';
 
 class SpecificPairScreen extends StatefulWidget {
   final String searchTerm;
@@ -36,7 +38,6 @@ class SpecificPairScreenState extends State<SpecificPairScreen> {
               } else if (snapshot.hasError) {
                 return Text(snapshot.error);
               }
-
               return CircularProgressIndicator();
             },
           ),
@@ -53,20 +54,32 @@ class Pairs extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
         children: pairs
-            .map((movie) => Card(
-                    child: Row(
-                  children: <Widget>[
-                    Expanded(child: this.movie(movie)),
-                    Expanded(
-                        child: Card(
-                            child: Image.network(
-                                'https://i.imgur.com/vmCWjuV.png',
-                                fit: BoxFit.fill))),
-                    Expanded(
-                        child: Text(
-                            'Nostrud aliquip amet in ex ad deserunt laborum voluptate aute ea.'))
-                  ],
-                )))
+            .map((movie) => GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              InfoScreen(alcohol: alcohol, movie: movie)));
+                },
+                child: Card(
+                    margin: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 15.0),
+                    child: Container(
+                        height: 200.0,
+                        child: Row(children: <Widget>[
+                          Expanded(child: this.movie(movie)),
+                          Expanded(
+                              child: Text(
+                                  'Nostrud aliquip amet in ex ad deserunt laborum voluptate aute ea.')),
+                          Expanded(
+                              child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Image.network(
+                                      'https://i.imgur.com/vmCWjuV.png',
+                                      width: 185.0,
+                                      height: 278.0,
+                                      fit: BoxFit.fitHeight))),
+                        ])))))
             .toList());
   }
 
@@ -77,7 +90,9 @@ class Pairs extends StatelessWidget {
         "https://image.tmdb.org/t/p/w${imgWidth}_and_h${imgHeight}_bestv2/";
 
     if (movie['poster_path'] is String) {
-      return Card(child: Image.network(uri + movie['poster_path']));
+      return Padding(
+          padding: EdgeInsets.all(4.0),
+          child: Image.network(uri + movie['poster_path']));
     } else if (movie['title'].length is String) {
       return Text(movie['title']);
     }

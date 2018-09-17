@@ -1,11 +1,6 @@
 class Movie {
-  const Movie({
-    this.name,
-    this.image,
-    this.description,
-    this.genre,
-    this.rating
-  });
+  const Movie(
+      {this.name, this.image, this.description, this.genre, this.rating});
 
   final String name;
   final String image;

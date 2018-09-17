@@ -1,21 +1,4 @@
-class Result {
-  final int page;
-  final int total_results;
-  final int total_pages;
-  final List<dynamic> results;
-
-  Result({this.page, this.total_results, this.total_pages, this.results});
-
-  factory Result.fromJson(Map json) {
-    return Result(
-        page: json['page'],
-        total_results: json['total_results'],
-        total_pages: json['total_pages'],
-        results: json['results']);
-  }
-}
-
-class Movie {
+class Demo {
   final int vote_count;
   final int id;
   final bool video;
@@ -31,7 +14,7 @@ class Movie {
   final String overview;
   final String release_date;
 
-  Movie(
+  Demo(
       {this.vote_count,
       this.id,
       this.video,
@@ -47,8 +30,8 @@ class Movie {
       this.overview,
       this.release_date});
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
+  factory Demo.fromJson(Map<String, dynamic> json) {
+    return Demo(
         vote_count: json['vote_count'],
         id: json['id'],
         video: json['video'],

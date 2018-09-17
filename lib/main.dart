@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'MEER',
       theme: new ThemeData(
         primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.grey[100],
       ),
       routes: routes,
     );
