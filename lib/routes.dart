@@ -8,5 +8,6 @@ import 'package:meer/models/info_spec.dart';
 final routes = {
   '/home': (BuildContext context) => new HomeScreen(),
   // '/pairs': (BuildContext context) => new SpecificPairScreen(),
-  '/': (BuildContext context) => new InfoScreen(movie: movie, alcohol: alcohol,),
+  // '/': (BuildContext context) => new InfoScreen(movie: testMovie, alcohol: testAlcohol,),
+  '/': (BuildContext context) => new InfoScreen(movie: testMovie, beer: testAlcohol,),
 };

@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:meer/components/pairs/specific_pairs.dart';
+import 'package:meer/models/info_spec.dart';
+import 'package:meer/components/info/info.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -10,7 +12,6 @@ class Search extends StatefulWidget {
 }
 
 class SearchState extends State<Search> {
-  final _formKey = new GlobalKey<FormState>();
 
   void _goToPair(String searchTerm) {
     Navigator.push(
@@ -18,9 +19,8 @@ class SearchState extends State<Search> {
         new MaterialPageRoute(
             builder: (BuildContext context) =>
                 SpecificPairScreen(searchTerm: searchTerm)));
+    
   }
-
-  void _emptySearch() {}
 
   @override
   Widget build(BuildContext context) {

@@ -21,9 +21,6 @@ class HomeScreenState extends State<HomeScreen> {
           new Container(
             child: Search(), //search bar
           ),
-          // new Container(
-          //   child: Search(), //list of pairs
-          // ),
         ],
       ),
     );
