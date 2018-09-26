@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meer/API/the_movie_db.dart';
 import 'package:meer/components/info/info.dart';
 import 'package:meer/models/info_spec.dart';
+import 'package:meer/components/swiping/swiping.dart';
+import 'package:meer/models/movie.dart';
 
 class SpecificPairScreen extends StatefulWidget {
   final String searchTerm;
@@ -16,6 +18,7 @@ class SpecificPairScreen extends StatefulWidget {
 
 class SpecificPairScreenState extends State<SpecificPairScreen> {
   String searchTerm = "";
+  final List<Movie> movieList = <Movie>[];
 
   @override
   void initState() {
@@ -34,7 +37,7 @@ class SpecificPairScreenState extends State<SpecificPairScreen> {
             future: fetchResult(this.searchTerm),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Pairs(snapshot.data);
+                return SwipeScreen(movieList: snapshot.data);
               } else if (snapshot.hasError) {
                 return Text(snapshot.error);
               }
@@ -60,7 +63,7 @@ class Pairs extends StatelessWidget {
                       context,
                       new MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              InfoScreen(alcohol: alcohol, movie: movie)));
+                              InfoScreen(beer: testAlcohol, movie: movie)));
                 },
                 child: Card(
                     margin: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 15.0),

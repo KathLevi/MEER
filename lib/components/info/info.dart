@@ -4,11 +4,9 @@ import 'package:meer/models/beer.dart';
 import 'package:meer/API/the_beer_db.dart';
 
 class InfoScreen extends StatefulWidget {
-  final Movie movie;
-  final Beer beer;
+  final dynamic movie;
 
-  InfoScreen({Key key, @required this.movie, @required this.beer})
-      : super(key: key);
+  InfoScreen({Key key, @required this.movie}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,42 +15,42 @@ class InfoScreen extends StatefulWidget {
 }
 
 class InfoScreenState extends State<InfoScreen> {
-  Movie movie;
+  var movie;
   Beer beer;
 
   @override
   void initState() {
     movie = widget.movie;
-    beer = widget.beer;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(movie.title + ' pairing'),
-      ),
-      body: Center(
-        child: FutureBuilder(
-          future: fetchBeerResult(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Info(movie, snapshot.data);
-            } else if (snapshot.hasError) {
-              return Text(snapshot.error);
-            }
-            return CircularProgressIndicator();
-          },
-        ),
+    // return new Scaffold(
+    // appBar: new AppBar(
+    // title: new Text(movie.title + ' pairing'),
+    // ),
+    // body:
+    return new Center(
+      child: FutureBuilder(
+        future: fetchBeerResult(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Info(movie, snapshot.data);
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error);
+          }
+          return CircularProgressIndicator();
+        },
       ),
     );
   }
 }
 
 class Info extends StatelessWidget {
-  final Movie movie;
+  final dynamic movie;
   final Beer beer;
+  final String uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
 
   Info(this.movie, this.beer);
 
@@ -63,8 +61,7 @@ class Info extends StatelessWidget {
       children: <Widget>[
         Container(
           width: 150.0,
-          child: Image.network('https://i.imgur.com/vmCWjuV.png',
-              fit: BoxFit.fill),
+          child: Image.network(uri + movie['poster_path'], fit: BoxFit.fill),
         ),
         Container(
           child: Padding(
@@ -73,16 +70,16 @@ class Info extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  movie.title,
+                  movie['title'],
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Genre: ' + movie.genre_ids.toString()),
+                  child: Text('Genre: ' + movie['genre_ids'].toString()),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Rating: ' + movie.vote_average.toString()),
+                  child: Text('Rating: ' + movie['vote_average'].toString()),
                 ),
               ],
             ),
@@ -96,7 +93,7 @@ class Info extends StatelessWidget {
         children: <Widget>[
           Flexible(
             child: new Column(
-              children: <Widget>[new Text(movie.overview)],
+              children: <Widget>[new Text(movie['overview'])],
             ),
           ),
         ],
@@ -139,8 +136,7 @@ class Info extends StatelessWidget {
         Container(
           width: 150.0,
           height: 200.0,
-          child: Image.network(beer.imageUrl,
-              fit: BoxFit.fitHeight),
+          child: Image.network(beer.imageUrl, fit: BoxFit.fitHeight),
         ),
       ],
     );

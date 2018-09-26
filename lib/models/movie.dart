@@ -1,4 +1,4 @@
-class Demo {
+class Movie {
   final int vote_count;
   final int id;
   final bool video;
@@ -14,7 +14,7 @@ class Demo {
   final String overview;
   final String release_date;
 
-  Demo(
+  Movie(
       {this.vote_count,
       this.id,
       this.video,
@@ -30,8 +30,8 @@ class Demo {
       this.overview,
       this.release_date});
 
-  factory Demo.fromJson(Map<String, dynamic> json) {
-    return Demo(
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
         vote_count: json['vote_count'],
         id: json['id'],
         video: json['video'],
