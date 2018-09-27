@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:meer/models/movie.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -9,7 +10,7 @@ Future fetchResult(searchTerm) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> results = json.decode(response.body);
-    var movieArr = results['results'];
+    MovieList movieArr = MovieList.fromJson(results['results']);
     return movieArr;
   } else {
     throw Exception('Failed to load movie');

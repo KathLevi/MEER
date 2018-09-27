@@ -4,7 +4,7 @@ import 'package:meer/models/beer.dart';
 import 'package:meer/API/the_beer_db.dart';
 
 class InfoScreen extends StatefulWidget {
-  final dynamic movie;
+  final Movie movie;
 
   InfoScreen({Key key, @required this.movie}) : super(key: key);
 
@@ -15,7 +15,7 @@ class InfoScreen extends StatefulWidget {
 }
 
 class InfoScreenState extends State<InfoScreen> {
-  var movie;
+  Movie movie;
   Beer beer;
 
   @override
@@ -48,7 +48,7 @@ class InfoScreenState extends State<InfoScreen> {
 }
 
 class Info extends StatelessWidget {
-  final dynamic movie;
+  final Movie movie;
   final Beer beer;
   final String uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
 
@@ -61,7 +61,7 @@ class Info extends StatelessWidget {
       children: <Widget>[
         Container(
           width: 150.0,
-          child: Image.network(uri + movie['poster_path'], fit: BoxFit.fill),
+          child: Image.network(uri + movie.poster_path, fit: BoxFit.fill),
         ),
         Container(
           child: Padding(
@@ -70,16 +70,16 @@ class Info extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  movie['title'],
+                  movie.title,
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Genre: ' + movie['genre_ids'].toString()),
+                  child: Text('Genre: ' + movie.genre_ids.toString()),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Rating: ' + movie['vote_average'].toString()),
+                  child: Text('Rating: ' + movie.vote_average.toString()),
                 ),
               ],
             ),
@@ -93,7 +93,7 @@ class Info extends StatelessWidget {
         children: <Widget>[
           Flexible(
             child: new Column(
-              children: <Widget>[new Text(movie['overview'])],
+              children: <Widget>[new Text(movie.overview)],
             ),
           ),
         ],

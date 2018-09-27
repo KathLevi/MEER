@@ -2,13 +2,13 @@ class Movie {
   final int vote_count;
   final int id;
   final bool video;
-  final double vote_average;
+  final dynamic vote_average;
   final String title;
   final double popularity;
   final String poster_path;
   final String original_language;
   final String original_title;
-  final List<int> genre_ids;
+  final List<dynamic> genre_ids;
   final String backdrop_path;
   final bool adult;
   final String overview;
@@ -46,5 +46,20 @@ class Movie {
         adult: json['adult'],
         overview: json['overview'],
         release_date: json['release_date']);
+  }
+}
+
+class MovieList {
+  final List<Movie> movie;
+
+  MovieList({
+    this.movie,
+  });
+
+  factory MovieList.fromJson(List<dynamic> json) {
+    List<Movie> movie = new List<Movie>();
+    movie = json.map((i) => Movie.fromJson(i)).toList();
+
+    return new MovieList(movie: movie);
   }
 }
