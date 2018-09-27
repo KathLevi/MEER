@@ -7,8 +7,8 @@ Movie testMovie = Movie(
     poster_path: 'assets/something.png',
     overview:
         'Some movie about some people doing something to someone using something.',
-    vote_average: 8.0,
-    genre_ids: [1, 2]);
+    vote_average: 4.3,
+    genre_ids: [12, 878, 28]);
 
 Beer testAlcohol = Beer(
     id: 192,

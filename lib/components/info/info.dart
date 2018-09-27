@@ -16,7 +16,8 @@ class InfoScreen extends StatefulWidget {
 
 class InfoScreenState extends State<InfoScreen> {
   Movie movie;
-  Beer beer;
+  var round;
+  int rating;
 
   @override
   void initState() {
@@ -26,14 +27,11 @@ class InfoScreenState extends State<InfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return new Scaffold(
-    // appBar: new AppBar(
-    // title: new Text(movie.title + ' pairing'),
-    // ),
-    // body:
-    return new Center(
+    round = movie.vote_average.toStringAsFixed(0);
+    rating = int.parse(round);
+    return Center(
       child: FutureBuilder(
-        future: fetchBeerResult(),
+        future: fetchBeerResult(this.rating),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Info(movie, snapshot.data);
@@ -51,11 +49,20 @@ class Info extends StatelessWidget {
   final Movie movie;
   final Beer beer;
   final String uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
+  String genres = '';
 
   Info(this.movie, this.beer);
 
+  void _loop() {
+    for (var i = 0; i < movie.genre_ids.length; i++) {
+      String asdfgl = movie.genre_ids[i].toString();
+      genres += genre[asdfgl] + "\n";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    this._loop();
     var movieRow = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -75,7 +82,7 @@ class Info extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Genre: ' + movie.genre_ids.toString()),
+                  child: Text('Genre: ' + genres),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
