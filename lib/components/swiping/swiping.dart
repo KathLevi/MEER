@@ -15,6 +15,7 @@ class SwipeScreen extends StatefulWidget {
 
 class SwipeScreenState extends State<SwipeScreen> {
   MovieList movieList;
+  int swipeCounter = 0;
   int counter = 0;
 
   @override
@@ -26,24 +27,37 @@ class SwipeScreenState extends State<SwipeScreen> {
   @override
   Widget build(BuildContext context) {
     return new Dismissible(
-      key: new ValueKey(counter),
+      key: new ValueKey(swipeCounter),
+      background: Container(color: Colors.purple),
       onDismissed: (direction) {
-        var modifier = 0;
-        print(direction);
-        if (direction == DismissDirection.endToStart) {
-          modifier = 1;
-        } else {
-          modifier = -1;
+        var newCounter = 0;
+        switch (direction) {
+          case DismissDirection.endToStart:
+            if (counter >= movieList.movie.length - 1) {
+              newCounter = movieList.movie.length - 1;
+              break;
+            }
+            newCounter = counter + 1;
+            break;
+          case DismissDirection.startToEnd:
+            if (counter <= 0) {
+              break;
+            }
+            newCounter = counter - 1;
+            break;
+          case DismissDirection.up:
+            break;
+          case DismissDirection.down:
+            break;
+          case DismissDirection.vertical:
+            break;
+          case DismissDirection.horizontal:
+            break;
         }
-        var res = counter + modifier;
-        if (res < 0) {
-          res = 0;
-        } else if (res >= movieList.movie.length) {
-          res = movieList.movie.length - 1;
-        }
+
         setState(() {
-          print('setting state' + res.toString());
-          counter = res;
+          counter = newCounter;
+          swipeCounter++;
         });
       },
       child: ListView(children: [InfoScreen(movie: movieList.movie[counter])]),
