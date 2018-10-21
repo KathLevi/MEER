@@ -48,7 +48,8 @@ class InfoScreenState extends State<InfoScreen> {
 class Info extends StatelessWidget {
   final Movie movie;
   final Beer beer;
-  final String uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
+  String poster_uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
+
   String genres = '';
 
   Info(this.movie, this.beer);
@@ -60,35 +61,49 @@ class Info extends StatelessWidget {
     }
   }
 
+  void checkMovieImg() {
+    if (movie.poster_path == null) {
+      this.poster_uri =
+          "https://www.lawlorscustom.com/content/images/thumbs/default-image_450.png";
+    } else {
+      this.poster_uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" +
+          movie.poster_path;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     this._loop();
+    this.checkMovieImg();
     var movieRow = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
           width: 150.0,
-          child: Image.network(uri + movie.poster_path, fit: BoxFit.fill),
+          child: Image.network(poster_uri, fit: BoxFit.fill),
         ),
         Container(
-          child: Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  movie.title,
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Genre: ' + genres),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                  child: Text('Rating: ' + movie.vote_average.toString()),
-                ),
-              ],
+          child: Flexible(
+            child: Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    movie.title,
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: Text('Genre: ' + genres),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
+                    child: Text('Rating: ' + movie.vote_average.toString()),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
