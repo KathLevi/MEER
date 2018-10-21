@@ -34,13 +34,14 @@ class SwipeScreenState extends State<SwipeScreen> {
         switch (direction) {
           case DismissDirection.endToStart:
             if (counter >= movieList.movie.length - 1) {
-              newCounter = movieList.movie.length - 1;
+              newCounter = 0;
               break;
             }
             newCounter = counter + 1;
             break;
           case DismissDirection.startToEnd:
             if (counter <= 0) {
+              newCounter = movieList.movie.length - 1;
               break;
             }
             newCounter = counter - 1;
