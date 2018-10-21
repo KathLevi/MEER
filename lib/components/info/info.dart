@@ -51,6 +51,7 @@ class Info extends StatelessWidget {
   String poster_uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
 
   String genres = '';
+  String food = '';
 
   Info(this.movie, this.beer);
 
@@ -58,6 +59,10 @@ class Info extends StatelessWidget {
     for (var i = 0; i < movie.genre_ids.length; i++) {
       String asdfgl = movie.genre_ids[i].toString();
       genres += genre[asdfgl] + "\n";
+    }
+
+    for (var i = 0; i < beer.foodPairing.length; i++) {
+      food += beer.foodPairing[i].toString() + "\n";
     }
   }
 
@@ -83,22 +88,36 @@ class Info extends StatelessWidget {
         Container(
           child: Flexible(
             child: Padding(
-              padding: EdgeInsets.only(left: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  // find a better way to wrap text so that it works for all screen sizes
                   Text(
                     movie.title,
                     style:
                         TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                    child: Text('Genre: ' + genres),
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Genre: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                    child: Text('Rating: ' + movie.vote_average.toString()),
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(genres),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(right: 5.0),
+                        child: Text('Rating:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Text(movie.vote_average.toString()),
+                    ],
                   ),
                 ],
               ),
@@ -119,18 +138,6 @@ class Info extends StatelessWidget {
         ],
       ),
     );
-    var topChoice = Row(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(bottom: 10.0),
-          child: Text(
-            'Top Choice: Beer',
-            style: TextStyle(
-                fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.red),
-          ),
-        )
-      ],
-    );
     var alcoholRow = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -144,11 +151,34 @@ class Info extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                child: Text("ABV: " + beer.abv.toString() + '%'),
+                child: Text(
+                  beer.tagline,
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        EdgeInsets.only(bottom: 10.0, top: 10.0, right: 5.0),
+                    child: Text(
+                      "ABV: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Text(beer.abv.toString() + '%'),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                child: Text("Tagline: " + beer.tagline),
+                child: Text(
+                  "Food Pairing: ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 10.0, left: 10.0),
+                child: Text(food),
               ),
             ],
           ),
@@ -160,20 +190,74 @@ class Info extends StatelessWidget {
         ),
       ],
     );
-    return new Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
+    var alcoholDescRow = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Row(
         children: <Widget>[
-          movieRow,
-          movieDescRow,
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Divider(
-              color: Colors.grey,
+          Flexible(
+            child: new Column(
+              children: <Widget>[new Text(beer.description)],
             ),
           ),
-          topChoice,
-          alcoholRow,
+        ],
+      ),
+    );
+    return new Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              movieRow,
+              movieDescRow,
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Divider(
+                  color: Colors.grey,
+                ),
+              ),
+              alcoholRow,
+              alcoholDescRow
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Align(
+                  alignment: FractionalOffset.centerLeft,
+                  child: SizedBox(
+                    width: 100.0,
+                    height: 100.0,
+                    child: new IconButton(
+                      icon: Icon(
+                        Icons.navigate_before,
+                        size: 50.0,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      onPressed: null,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: FractionalOffset.centerRight,
+                  child: SizedBox(
+                    width: 100.0,
+                    height: 100.0,
+                    child: new IconButton(
+                      icon: Icon(
+                        Icons.navigate_next,
+                        size: 50.0,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      onPressed: null,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

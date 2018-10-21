@@ -2,32 +2,29 @@ class Beer {
   final int id;
   final String name;
   final String tagline;
-  final String firstBrewed;
   final String description;
   final String imageUrl;
   final dynamic abv;
-  final String brewersTips;
+  final List<dynamic> foodPairing;
 
   Beer ({
     this.id,
     this.name,
     this.tagline,
-    this.firstBrewed,
     this.description,
     this.imageUrl,
     this.abv,
-    this.brewersTips});
+    this.foodPairing});
 
     factory Beer.fromJson(Map<String, dynamic> json) {
       return Beer(
         id: json["id"],
         name: json["name"],
         tagline: json["tagline"],
-        firstBrewed: json["first_brewed"],
         description: json["description"],
         imageUrl: json["image_url"],
         abv: json["abv"],
-        brewersTips: json["brewers_tips"]);
+        foodPairing: json["food_pairing"]);
     }
 }
 
