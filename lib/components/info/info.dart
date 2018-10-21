@@ -62,13 +62,11 @@ class Info extends StatelessWidget {
   }
 
   void checkMovieImg() {
-    if (movie.poster_path == null) {
-      this.poster_uri =
-          "https://www.lawlorscustom.com/content/images/thumbs/default-image_450.png";
-    } else {
-      this.poster_uri = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" +
-          movie.poster_path;
-    }
+    // OR
+    this.poster_uri = (movie.poster_path == null)
+        ? "https://www.lawlorscustom.com/content/images/thumbs/default-image_450.png"
+        : "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" +
+            movie.poster_path;
   }
 
   @override
