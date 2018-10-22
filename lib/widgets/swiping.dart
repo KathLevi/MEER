@@ -21,8 +21,27 @@ class SwiperNoSwipingState extends State<SwiperNoSwiping> {
   @override
   void initState() {
     _movieList = widget.movieList;
-    
+
     super.initState();
+  }
+
+  callback(newSwipe) {
+    setState(() {
+      if (newSwipe == "next") {
+        if (counter >= _movieList.movie.length - 1) {
+          counter = 0;
+        } else {
+          counter++;
+        }
+      } else if (newSwipe == "back") {
+        if (counter <= 0) {
+          counter = _movieList.movie.length - 1;
+        } else {
+          counter--;
+        }
+      }
+      swipeCounter++;
+    });
   }
 
   @override
@@ -62,7 +81,9 @@ class SwiperNoSwipingState extends State<SwiperNoSwiping> {
           swipeCounter++;
         });
       },
-      child: ListView(children: [InfoScreen(movie: _movieList.movie[counter])]),
+      child: ListView(children: [
+        InfoScreen(movie: _movieList.movie[counter], callback: callback)
+      ]),
     );
   }
 }
