@@ -1,8 +1,5 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:meer/components/pairs/specific_pairs.dart';
-import 'package:meer/components/swiping/swiping.dart';
-import 'package:meer/components/info/info.dart';
+import 'package:meer/screens/results.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -15,17 +12,17 @@ class SearchState extends State<Search> {
   void _goToPair(String searchTerm) {
     Navigator.push(
         context,
-        new MaterialPageRoute(
+        MaterialPageRoute(
             builder: (BuildContext context) =>
-                SpecificPairScreen(searchTerm: searchTerm)));
+               ResultsScreen(searchTerm: searchTerm)));
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
+    return Center(
       child: TextField(
         onSubmitted: _goToPair,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
             labelText: "Search Term", icon: Icon(Icons.search)),
       ),
     );

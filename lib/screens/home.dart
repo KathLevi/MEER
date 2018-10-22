@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-
-import 'package:meer/components/search/search.dart';
+import 'package:meer/widgets/search.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new HomeScreenState();
+    return HomeScreenState();
   }
 }
 
 class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('MEER'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('MEER'),
       ),
-      body: new Column(
+      body: Column(
         children: <Widget>[
-          new Container(
+          Container(
             child: Search(), //search bar
           ),
         ],

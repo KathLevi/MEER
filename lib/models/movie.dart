@@ -1,51 +1,52 @@
 class Movie {
-  final int vote_count;
+  final int voteCount;
   final int id;
   final bool video;
-  final dynamic vote_average;
+  final dynamic voteAverage;
   final String title;
   final double popularity;
-  final String poster_path;
-  final String original_language;
-  final String original_title;
-  final List<dynamic> genre_ids;
-  final String backdrop_path;
+  final String posterPath;
+  final String originalLanguage;
+  final String originalTitle;
+  final List<dynamic> genreIds;
+  final String backdropPath;
   final bool adult;
   final String overview;
-  final String release_date;
+  final String releaseDate;
 
-  Movie(
-      {this.vote_count,
+  Movie({
+      this.voteCount,
       this.id,
       this.video,
-      this.vote_average,
+      this.voteAverage,
       this.title,
       this.popularity,
-      this.poster_path,
-      this.original_language,
-      this.original_title,
-      this.genre_ids,
-      this.backdrop_path,
+      this.posterPath,
+      this.originalLanguage,
+      this.originalTitle,
+      this.genreIds,
+      this.backdropPath,
       this.adult,
       this.overview,
-      this.release_date});
+      this.releaseDate
+  });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-        vote_count: json['vote_count'],
+        voteCount: json['vote_count'],
         id: json['id'],
         video: json['video'],
-        vote_average: json['vote_average'],
+        voteAverage: json['vote_average'],
         title: json['title'],
         popularity: json['popularity'],
-        poster_path: json['poster_path'],
-        original_language: json['original_language'],
-        original_title: json['original_title'],
-        genre_ids: json['genre_ids'],
-        backdrop_path: json['backdrop_path'],
+        posterPath: json['poster_path'],
+        originalLanguage: json['original_language'],
+        originalTitle: json['original_title'],
+        genreIds: json['genre_ids'],
+        backdropPath: json['backdrop_path'],
         adult: json['adult'],
         overview: json['overview'],
-        release_date: json['release_date']);
+        releaseDate: json['release_date']);
   }
 }
 
@@ -57,10 +58,10 @@ class MovieList {
   });
 
   factory MovieList.fromJson(List<dynamic> json) {
-    List<Movie> movie = new List<Movie>();
+    List<Movie> movie = List<Movie>();
     movie = json.map((i) => Movie.fromJson(i)).toList();
 
-    return new MovieList(movie: movie);
+    return MovieList(movie: movie);
   }
 }
 

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:meer/API/the_movie_db.dart';
-import 'package:meer/components/info/info.dart';
-import 'package:meer/components/swiping/swiping.dart';
+import 'package:meer/widgets/swiping.dart';
 import 'package:meer/models/movie.dart';
 
-class SpecificPairScreen extends StatefulWidget {
+class ResultsScreen extends StatefulWidget {
   final String searchTerm;
 
-  SpecificPairScreen({Key key, @required this.searchTerm}) : super(key: key);
+  ResultsScreen({Key key, @required this.searchTerm}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return new SpecificPairScreenState();
+    return ResultsScreenState();
   }
 }
 
-class SpecificPairScreenState extends State<SpecificPairScreen> {
+class ResultsScreenState extends State<ResultsScreen> {
   String searchTerm = "";
-  final MovieList movieList = new MovieList();
+  final MovieList movieList = MovieList();
 
   @override
   void initState() {
@@ -27,16 +26,16 @@ class SpecificPairScreenState extends State<SpecificPairScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text ("Results"),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text ("Results"),
         ),
         body: Center(
           child: FutureBuilder(
             future: fetchResult(this.searchTerm),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return SwipeScreen(movieList: snapshot.data);
+                 return SwiperNoSwiping(movieList: snapshot.data);
               } else if (snapshot.hasError) {
                 return Text(snapshot.error);
               }

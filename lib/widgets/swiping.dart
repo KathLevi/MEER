@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:meer/components/info/info.dart';
+import 'package:meer/widgets/info.dart';
 import 'package:meer/models/movie.dart';
 
-class SwipeScreen extends StatefulWidget {
+class SwiperNoSwiping extends StatefulWidget {
   final MovieList movieList;
 
-  SwipeScreen({Key key, @required this.movieList}) : super(key: key);
+  SwiperNoSwiping({Key key, @required this.movieList}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return new SwipeScreenState();
+    return SwiperNoSwipingState();
   }
 }
 
-class SwipeScreenState extends State<SwipeScreen> {
-  MovieList movieList;
+class SwiperNoSwipingState extends State<SwiperNoSwiping> {
+  MovieList _movieList = MovieList();
   int swipeCounter = 0;
   int counter = 0;
 
   @override
   void initState() {
-    movieList = widget.movieList;
+    _movieList = widget.movieList;
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Dismissible(
-      key: new ValueKey(swipeCounter),
+    return Dismissible(
+      key: ValueKey(swipeCounter),
       background: Container(color: Colors.purple),
       onDismissed: (direction) {
         var newCounter = 0;
         switch (direction) {
           case DismissDirection.endToStart:
-            if (counter >= movieList.movie.length - 1) {
+            if (counter >= _movieList.movie.length - 1) {
               newCounter = 0;
               break;
             }
@@ -41,7 +42,7 @@ class SwipeScreenState extends State<SwipeScreen> {
             break;
           case DismissDirection.startToEnd:
             if (counter <= 0) {
-              newCounter = movieList.movie.length - 1;
+              newCounter = _movieList.movie.length - 1;
               break;
             }
             newCounter = counter - 1;
@@ -61,7 +62,7 @@ class SwipeScreenState extends State<SwipeScreen> {
           swipeCounter++;
         });
       },
-      child: ListView(children: [InfoScreen(movie: movieList.movie[counter])]),
+      child: ListView(children: [InfoScreen(movie: _movieList.movie[counter])]),
     );
   }
 }
