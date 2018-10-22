@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meer/models/movie.dart';
 import 'package:meer/API/the_beer_db.dart';
+import '../adaptive.dart';
 
 class InfoScreen extends StatefulWidget {
   final Movie movie;

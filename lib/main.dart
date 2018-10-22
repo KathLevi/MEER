@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meer/routes.dart';
+import 'adaptive.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,12 +10,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'MEER',
-      theme: new ThemeData(
-        primarySwatch: Colors.deepPurple,
-        accentColor: Colors.red,
-        scaffoldBackgroundColor: Colors.grey[100],
-      ),
+       theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : kDefaultTheme,
       routes: routes,
+      
     );
   }
 }

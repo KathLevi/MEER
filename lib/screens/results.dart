@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meer/API/the_movie_db.dart';
 import 'package:meer/widgets/swiping.dart';
 import 'package:meer/models/movie.dart';
+import '../adaptive.dart';
+
 
 class ResultsScreen extends StatefulWidget {
   final String searchTerm;
@@ -27,8 +29,9 @@ class ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar: PlatformAdaptiveAppBar(
           title: Text ("Results"),
+          platform: Theme.of(context).platform,
         ),
         body: Center(
           child: FutureBuilder(
