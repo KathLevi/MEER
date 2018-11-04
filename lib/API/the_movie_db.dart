@@ -16,3 +16,16 @@ Future<MovieList> fetchResult(searchTerm) async {
     throw Exception('Failed to load movie');
   }
 }
+
+Future<MovieList> fetchPreview() async {
+  final response = await http.get(
+      'https://api.themoviedb.org/3/discover/movie?api_key=c2e77ee03e948895297a61e354780a8e&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> results = json.decode(response.body);
+    MovieList movieArr = MovieList.fromJson(results['results']);
+    return movieArr;
+  } else {
+    throw Exception('Failed to load movies');
+  }
+}
