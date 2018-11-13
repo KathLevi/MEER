@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meer/widgets/search.dart';
+import 'package:meer/widgets/preview.dart';
 import '../adaptive.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class HomeScreenState extends State<HomeScreen> {
         title: Text('MEER'),
         platform: Theme.of(context).platform,
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           Center(
               child: Container(
@@ -33,10 +34,7 @@ class HomeScreenState extends State<HomeScreen> {
               child: Text(
                   "Sunt in eiusmod nisi in veniam magna Lorem consectetur nulla aute enim non. Lorem nisi laboris ut sunt proident sunt pariatur ut excepteur duis. Enim ad cupidatat eiusmod pariatur adipisicing reprehenderit do non.")),
           new Divider(),
-          Container(
-              child: Row(
-            children: <Widget>[],
-          ))
+          new Preview(),
         ],
       ),
     );
