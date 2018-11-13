@@ -11,7 +11,8 @@ class Preview extends StatelessWidget {
         if (snapshot.hasData) {
           if (snapshot.hasData) {
             final MovieList movieList = snapshot.data;
-            return Expanded(
+            return Container(
+                height: 220.00,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: movieList.movie.length,
