@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:meer/models/movie.dart';
 import 'package:meer/API/the_beer_db.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import '../adaptive.dart';
 
 class InfoScreen extends StatefulWidget {
   final Movie movie;
-  final Function(String) callback;
+  // final Function(String) callback;
+  final SwiperController controller;
 
-  InfoScreen({Key key, @required this.movie, this.callback}) : super(key: key);
+  InfoScreen({Key key, @required this.movie, this.controller})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -209,7 +212,7 @@ class InfoScreenState extends State<InfoScreen> {
                 size: 30.0,
                 color: Theme.of(context).accentColor,
               ),
-              onPressed: () => widget.callback("back"),
+              onPressed: () => widget.controller.previous(),
             ),
             IconButton(
               icon: Icon(
@@ -217,7 +220,7 @@ class InfoScreenState extends State<InfoScreen> {
                 size: 30.0,
                 color: Theme.of(context).accentColor,
               ),
-              onPressed: () => widget.callback("next"),
+              onPressed: () => widget.controller.next(),
             ),
           ],
         ),

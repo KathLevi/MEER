@@ -18,14 +18,14 @@ class SwiperNoSwipingState extends State<SwiperNoSwiping> {
   MovieList _movieList = MovieList();
   int swipeCounter = 0;
   int counter = 0;
-  List<Widget> swipingArray() {
-    var pairs = [];
-    for (var i = 0; i < _movieList.movie.length; i++) {
-      pairs.add(InfoScreen(movie: _movieList.movie[i], callback: callback));
-    }
+  // List<Widget> swipingArray() {
+  //   var pairs = [];
+  // for (var i = 0; i < _movieList.movie.length; i++) {
+  //   pairs.add(InfoScreen(movie: _movieList.movie[i], callback: callback));
+  // }
 
-    return pairs;
-  }
+  //   return pairs;
+  // }
 
   @override
   void initState() {
@@ -35,33 +35,33 @@ class SwiperNoSwipingState extends State<SwiperNoSwiping> {
   }
 
   callback(newSwipe) {
-    setState(() {
-      if (newSwipe == "next") {
-        if (counter >= _movieList.movie.length - 1) {
-          counter = 0;
-        } else {
-          counter++;
-        }
-      } else if (newSwipe == "back") {
-        if (counter <= 0) {
-          counter = _movieList.movie.length - 1;
-        } else {
-          counter--;
-        }
-      }
-      swipeCounter++;
-    });
+    if (newSwipe == "next") {
+      // if (counter >= _movieList.movie.length - 1) {
+      //   counter = 0;
+      // } else {
+      //   counter++;
+      // }
+    } else if (newSwipe == "back") {
+      // if (counter <= 0) {
+      //   counter = _movieList.movie.length - 1;
+      // } else {
+      //   counter--;
+      // }
+    }
+    swipeCounter++;
   }
 
   @override
   Widget build(BuildContext context) {
+    var controller = new SwiperController();
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
         return new ListView(children: <Widget>[
-          InfoScreen(movie: _movieList.movie[index], callback: callback)
+          InfoScreen(movie: _movieList.movie[index], controller: controller)
         ]);
       },
       autoplay: false,
+      controller: controller,
       itemCount: _movieList.movie.length,
     );
   }
