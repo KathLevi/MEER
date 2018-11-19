@@ -80,7 +80,9 @@ class InfoScreenState extends State<InfoScreen> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10.0),
-                          child: Text(genres),
+                          child: genres.length != 0
+                              ? Text(genres)
+                              : Text("not classified"),
                         ),
                         Row(
                           children: <Widget>[

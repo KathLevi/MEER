@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meer/widgets/info.dart';
 import 'package:meer/models/movie.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SwiperNoSwiping extends StatefulWidget {
   final MovieList movieList;
@@ -17,6 +18,14 @@ class SwiperNoSwipingState extends State<SwiperNoSwiping> {
   MovieList _movieList = MovieList();
   int swipeCounter = 0;
   int counter = 0;
+  List<Widget> swipingArray() {
+    var pairs = [];
+    for (var i = 0; i < _movieList.movie.length; i++) {
+      pairs.add(InfoScreen(movie: _movieList.movie[i], callback: callback));
+    }
+
+    return pairs;
+  }
 
   @override
   void initState() {
@@ -46,44 +55,14 @@ class SwiperNoSwipingState extends State<SwiperNoSwiping> {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(swipeCounter),
-      background: Container(color: Colors.purple),
-      onDismissed: (direction) {
-        var newCounter = 0;
-        switch (direction) {
-          case DismissDirection.endToStart:
-            if (counter >= _movieList.movie.length - 1) {
-              newCounter = 0;
-              break;
-            }
-            newCounter = counter + 1;
-            break;
-          case DismissDirection.startToEnd:
-            if (counter <= 0) {
-              newCounter = _movieList.movie.length - 1;
-              break;
-            }
-            newCounter = counter - 1;
-            break;
-          case DismissDirection.up:
-            break;
-          case DismissDirection.down:
-            break;
-          case DismissDirection.vertical:
-            break;
-          case DismissDirection.horizontal:
-            break;
-        }
-
-        setState(() {
-          counter = newCounter;
-          swipeCounter++;
-        });
+    return Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return new ListView(children: <Widget>[
+          InfoScreen(movie: _movieList.movie[index], callback: callback)
+        ]);
       },
-      child: ListView(children: [
-        InfoScreen(movie: _movieList.movie[counter], callback: callback)
-      ]),
+      autoplay: false,
+      itemCount: _movieList.movie.length,
     );
   }
 }
