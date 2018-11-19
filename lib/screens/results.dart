@@ -4,7 +4,6 @@ import 'package:meer/widgets/swiping.dart';
 import 'package:meer/models/movie.dart';
 import '../adaptive.dart';
 
-
 class ResultsScreen extends StatefulWidget {
   final String searchTerm;
 
@@ -30,7 +29,7 @@ class ResultsScreenState extends State<ResultsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PlatformAdaptiveAppBar(
-          title: Text ("Results"),
+          title: Text("Results"),
           platform: Theme.of(context).platform,
         ),
         body: Center(
@@ -38,7 +37,7 @@ class ResultsScreenState extends State<ResultsScreen> {
             future: fetchResult(this.searchTerm),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                 return SwiperNoSwiping(movieList: snapshot.data);
+                return SwiperNoSwiping(movieList: snapshot.data);
               } else if (snapshot.hasError) {
                 return Text(snapshot.error);
               }

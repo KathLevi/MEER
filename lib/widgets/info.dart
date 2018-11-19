@@ -26,7 +26,7 @@ class InfoScreenState extends State<InfoScreen> {
     super.initState();
   }
 
-  Widget _info(movie, beer) {
+  Widget _info(movie) {
     String posterUri = '';
     String genres = '';
     String food = '';
@@ -35,10 +35,6 @@ class InfoScreenState extends State<InfoScreen> {
       for (var i = 0; i < movie.genreIds.length; i++) {
         String asdfgl = movie.genreIds[i].toString();
         genres += genre[asdfgl] + "\n";
-      }
-
-      for (var i = 0; i < beer.foodPairing.length; i++) {
-        food += beer.foodPairing[i].toString() + "\n";
       }
     }
 
@@ -120,7 +116,10 @@ class InfoScreenState extends State<InfoScreen> {
       );
     }
 
-    Widget _alcohol() {
+    Widget _alcohol(beer) {
+      for (var i = 0; i < beer.foodPairing.length; i++) {
+        food += beer.foodPairing[i].toString() + "\n";
+      }
       return Column(children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,6 +189,9 @@ class InfoScreenState extends State<InfoScreen> {
       ]);
     }
 
+    round = movie.voteAverage.toStringAsFixed(0);
+    rating = int.parse(round);
+
     return Column(
       children: <Widget>[
         Padding(
@@ -218,29 +220,30 @@ class InfoScreenState extends State<InfoScreen> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: _alcohol(),
-        ),
+            padding: const EdgeInsets.all(10.0),
+            child: FutureBuilder(
+                future: fetchBeerResult(this.rating),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return _alcohol(snapshot.data);
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.toString());
+                  }
+                  return Column(children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text("Fetching Alcohol")),
+                    new CircularProgressIndicator()
+                  ]);
+                })
+            // _alcohol(),
+            ),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    round = movie.voteAverage.toStringAsFixed(0);
-    rating = int.parse(round);
-    return Center(
-      child: FutureBuilder(
-        future: fetchBeerResult(this.rating),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return _info(movie, snapshot.data);
-          } else if (snapshot.hasError) {
-            return Text(snapshot.error);
-          }
-          return CircularProgressIndicator();
-        },
-      ),
-    );
+    return Center(child: _info(movie));
   }
 }
