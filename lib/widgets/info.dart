@@ -203,27 +203,29 @@ class InfoScreenState extends State<InfoScreen> {
           padding: const EdgeInsets.all(10.0),
           child: _movie(),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.navigate_before,
-                size: 30.0,
-                color: Theme.of(context).accentColor,
-              ),
-              onPressed: () => widget.controller.previous(),
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.navigate_next,
-                size: 30.0,
-                color: Theme.of(context).accentColor,
-              ),
-              onPressed: () => widget.controller.next(),
-            ),
-          ],
-        ),
+
+        _buttons(widget.controller),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     IconButton(
+        //       icon: Icon(
+        //         Icons.navigate_before,
+        //         size: 30.0,
+        //         color: Theme.of(context).accentColor,
+        //       ),
+        //       onPressed: () => widget.controller.previous(),
+        //     ),
+        //     IconButton(
+        //       icon: Icon(
+        //         Icons.navigate_next,
+        //         size: 30.0,
+        //         color: Theme.of(context).accentColor,
+        //       ),
+        //       onPressed: () => widget.controller.next(),
+        //     ),
+        //   ],
+        // ),
         Padding(
             padding: const EdgeInsets.all(10.0),
             child: FutureBuilder(
@@ -245,6 +247,34 @@ class InfoScreenState extends State<InfoScreen> {
             ),
       ],
     );
+  }
+
+  Widget _buttons(controller) {
+    if (controller != null) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.navigate_before,
+              size: 30.0,
+              color: Theme.of(context).accentColor,
+            ),
+            onPressed: () => widget.controller.previous(),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.navigate_next,
+              size: 30.0,
+              color: Theme.of(context).accentColor,
+            ),
+            onPressed: () => widget.controller.next(),
+          ),
+        ],
+      );
+    }
+
+    return Row();
   }
 
   @override
